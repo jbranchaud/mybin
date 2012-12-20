@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+"""
+pyv - this is a simple script that will use the pkg_resources module to quickly
+determine the version of a given python module.
+"""
+
+# Import Statements
+import pkg_resources
+import sys 
+
+def main(argv):
+    if not argv:
+        # no argument given, print usage
+        print_usage()
+
+    else:
+        module_name = argv[0]
+        try:
+            info = pkg_resources.get_distribution(module_name)
+            name = info.project_name
+            version = info.version
+            location = info.location
+            print name + " " + version + " (" + location + ")"
+        except pkg_resources.DistributionNotFound:
+            print "No distribution named " + module_name
+
+def print_usage():
+    print 'usage: pyv module_name'
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
+
