@@ -8,9 +8,8 @@ determine the version of a given python module.
 # Import Statements
 import argparse
 import pkg_resources
-import sys 
 
-def main(argv):
+def main():
     # parse the arguments
     parser = argparse.ArgumentParser(description='Get Python module version info')
     parser.add_argument('name', help='name of the module')
@@ -32,5 +31,5 @@ def main(argv):
         print "No distribution named " + module_name
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()
 
