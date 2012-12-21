@@ -6,27 +6,30 @@ determine the version of a given python module.
 """
 
 # Import Statements
+import argparse
 import pkg_resources
 import sys 
 
 def main(argv):
-    if not argv:
-        # no argument given, print usage
-        print_usage()
+    # parse the arguments
+    parser = argparse.ArgumentParser(description='Get Python module version info')
+    parser.add_argument('name', help='name of the module')
+    parser.add_argument('-v', '--verbose', action="store_true",
+        help='get verbose output')
+    args = parser.parse_args()
 
-    else:
-        module_name = argv[0]
-        try:
-            info = pkg_resources.get_distribution(module_name)
-            name = info.project_name
-            version = info.version
-            location = info.location
+    module_name = args.name
+    try:
+        info = pkg_resources.get_distribution(module_name)
+        name = info.project_name
+        version = info.version
+        location = info.location
+        if args.verbose:
             print name + " " + version + " (" + location + ")"
-        except pkg_resources.DistributionNotFound:
-            print "No distribution named " + module_name
-
-def print_usage():
-    print 'usage: pyv module_name'
+        else:
+            print version
+    except pkg_resources.DistributionNotFound:
+        print "No distribution named " + module_name
 
 if __name__ == '__main__':
     main(sys.argv[1:])
