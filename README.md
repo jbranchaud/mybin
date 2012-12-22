@@ -23,3 +23,10 @@ Example 2: `pyv -v lxml` -> `lxml 3.0.2 (/Library/Python/2.7/site-packages)`
 
 Example 3: `pyv not_a_module` -> `No distribution named not_a_module`
 
+License
+-------
+
+Copyright (c) 2012 Josh Branchaud
+
+License under the MIT License
+
