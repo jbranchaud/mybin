@@ -1,0 +1,21 @@
+#!/usr/bin/python
+
+"""
+licenseme
+
+this program adds a file named LICENSE which contains the license text for a
+specified open source license to the current directory with the year and name
+filled in.
+"""
+
+# Imports
+import argparse
+import os
+import os.path
+
+def main():
+    
+
+if __name__ == '__main__':
+    main()
+
