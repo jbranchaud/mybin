@@ -26,6 +26,8 @@ hn-discussion:
 import argparse
 import datetime
 import subprocess
+import os.path
+import sys
 
 DEFAULT_EXT = 'md'
 
@@ -67,7 +69,12 @@ def main():
     if args.Dir:
         filename = args.Dir + '/' + filename
 
-    # TODO: should probably do a check if the file already exists
+    # check if the desired file already exists
+    if os.path.exists(filename):
+        # file already exists, abort the program
+        print filename + ' already exists.'
+        print 'Jekyll post NOT created.'
+        sys.exit(1)
     f = open(filename, 'w')
 
     # write yaml to file
