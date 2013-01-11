@@ -57,6 +57,23 @@ like 2013-01-01-How-to-Shotgun-a-Beer.md.
 Example 3: `jekyll-post -d 2012-12-31 "Happy New Year"` will generate a file in
 the current directory with the name 2012-12-31-Happy-New-Year.md.
 
+licenseme
+---------
+
+This python script is to be run from inside a project to generate a file called
+README that contains license information. Currently, only the MIT license is
+supported, but other open source licenses will be supported soon. The persons
+name and the copyright year need to be hardcoded in the existing template
+LICENSE file for now. Options for specifying this info as well as a config file
+will be added soon.
+
+To run: `licenseme [-n Name]`
+
+- -n - optional tag to specify the name of the license that you want to use.
+
+Example 1: `licenseme` which will generate a file named LICENSE in the current
+directory.
+
 License
 -------
 
