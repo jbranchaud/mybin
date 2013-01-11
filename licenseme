@@ -12,9 +12,36 @@ filled in.
 import argparse
 import os
 import os.path
+import sys
 
-def main():
-    
+def main(): 
+    # parse the arguments
+    parser = argparse.ArgumentParser(description='Add a license file to the current directory/project.')
+    parser.add_argument('-n', '--name', help='optionally specify the name of a specific license to use (such as MIT).')
+    args = parser.parse_args()
+
+    # default is MIT
+    name = 'MIT'
+
+    # currently only the MIT license is used
+    if args.name:
+        if args.name != 'MIT':
+            print 'Sorry, only the MIT license is available at this time.'
+            sys.exit(1)
+
+    call_dir = os.path.dirname(sys.argv[0])
+    license_file = open(call_dir + '/LICENSE', 'r')
+
+    new_dir = os.path.abspath(os.path.curdir)
+    new_file = open(new_dir + '/LICENSE', 'w')
+
+    new_file.write(license_file.read())
+
+    # close everything
+    license_file.close()
+    new_file.close()
+
+    print name + ' License created.'
 
 if __name__ == '__main__':
     main()
