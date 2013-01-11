@@ -33,6 +33,7 @@ def main():
     # parse the arguments
     parser = argparse.ArgumentParser(description='Create a new Jekyll post.')
     parser.add_argument('title', help='the title of the post wrapped in quotes.')
+    parser.add_argument('-D', '--Dir', help='specify the directory (relative or absolute) that the file should be written to.')
     parser.add_argument('-d', '--date', help='specify the post date in the format YYYY-MM-DD, otherwise today is the default date.')
     parser.add_argument('-w', '--write', action="store_true",
         help='signals if this file should be opened for writing after creation')
@@ -62,6 +63,11 @@ def main():
     #filename = '%s-%s.%s', date, title, DEFAULT_EXT
     filename = date + '-' + dash_title + '.' + DEFAULT_EXT
 
+    # if Dir is specified, append to front of filename
+    if args.Dir:
+        filename = args.Dir + '/' + filename
+
+    # TODO: should probably do a check if the file already exists
     f = open(filename, 'w')
 
     # write yaml to file
@@ -71,7 +77,7 @@ def main():
     f.write('summary:\n')
     f.write('status: draft\n')
     f.write('hn-discussion:\n')
-    f.write('---\n\n')
+    f.write('---\n\n\n')
 
     f.close()
 
