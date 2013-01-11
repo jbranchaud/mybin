@@ -75,6 +75,8 @@ def main():
         print filename + ' already exists.'
         print 'Jekyll post NOT created.'
         sys.exit(1)
+
+    # TODO: should probably wrap all of this in try/catch
     f = open(filename, 'w')
 
     # write yaml to file
@@ -90,6 +92,8 @@ def main():
 
     if args.write:
         subprocess.call(['vi', filename])
+
+    print 'New Jekyll post "' + title + '" has been created -- ' + filename
 
 if __name__ == '__main__':
     main()
