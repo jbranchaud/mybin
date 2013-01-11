@@ -25,6 +25,7 @@ hn-discussion:
 # Import Statements
 import argparse
 import datetime
+import subprocess
 
 DEFAULT_EXT = 'md'
 
@@ -73,6 +74,9 @@ def main():
     f.write('---\n\n')
 
     f.close()
+
+    if args.write:
+        subprocess.call(['vi', filename])
 
 if __name__ == '__main__':
     main()
