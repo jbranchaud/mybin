@@ -74,11 +74,6 @@ def main():
 
     f.close()
 
-    print filename
-
-    print title
-    print date
-
 if __name__ == '__main__':
     main()
 
