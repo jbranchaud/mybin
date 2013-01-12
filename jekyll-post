@@ -37,13 +37,18 @@ def main():
     parser.add_argument('title', help='the title of the post wrapped in quotes.')
     parser.add_argument('-D', '--Dir', help='specify the directory (relative or absolute) that the file should be written to.')
     parser.add_argument('-d', '--date', help='specify the post date in the format YYYY-MM-DD, otherwise today is the default date.')
+    parser.add_argument('-n', '--name', help='specify the name of the post file instead of the automatically generated one. It is a best practice for the words to be separated by hyphens. Also note that the given name will be prepended with the date so as to conform to Jekyll naming requirements.')
     parser.add_argument('-w', '--write', action="store_true",
         help='signals if this file should be opened for writing after creation')
     args = parser.parse_args()
 
     title = args.title
     # exchange spaces for dashes
-    dash_title = title.replace(' ','-')
+    dash_title = ''
+    if args.name:
+        dash_title = args.name.replace(' ','-')
+    else:
+        dash_title = title.replace(' ','-')
 
     date = None
     if args.date:
