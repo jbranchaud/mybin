@@ -74,6 +74,11 @@ To run: `licenseme [-n Name]`
 Example 1: `licenseme` which will generate a file named LICENSE in the current
 directory.
 
+Some useful links:
+
+- [Open Source Initiative](http://opensource.org/licenses/)
+- [Pick a License, Any License](http://www.codinghorror.com/blog/2007/04/pick-a-license-any-license.html) - [Coding Horror](http://www.codinghorror.com/blog/)
+
 License
 -------
 
