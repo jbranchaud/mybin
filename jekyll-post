@@ -82,18 +82,22 @@ def main():
         sys.exit(1)
 
     # TODO: should probably wrap all of this in try/catch
-    f = open(filename, 'w')
+    try:
+        f = open(filename, 'w')
 
-    # write yaml to file
-    f.write('---\n')
-    f.write('layout: post\n')
-    f.write('title: ' + title + '\n')
-    f.write('summary:\n')
-    f.write('status: draft\n')
-    f.write('hn-discussion:\n')
-    f.write('---\n\n\n')
-
-    f.close()
+        # write yaml to file
+        try:
+            f.write('---\n')
+            f.write('layout: post\n')
+            f.write('title: ' + title + '\n')
+            f.write('summary:\n')
+            f.write('status: draft\n')
+            f.write('hn-discussion:\n')
+            f.write('---\n\n\n')
+        finally:
+            f.close()
+    except IOError:
+        print 'Issue writing to Jekyll post file.'
 
     if args.write:
         subprocess.call(['vi', filename])
