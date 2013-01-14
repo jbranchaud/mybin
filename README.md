@@ -34,10 +34,10 @@ on starting a new post.
 
 To run: `jekyll-post [-D Dir] [-d date] [-w] title`
 
-- title - the title of the post wrapped in quotes
-- -D/--Dir - specify the directory (absolute or relative) in which the new file should be written
-- -d/--date - specify a date in the format YYYY-MM-DD or leave out to default to today's date
-- -w - this flag signals to open the new file in an editor (default is vi)
+- `title` - the title of the post wrapped in quotes
+- `-D`/`--Dir` - specify the directory (absolute or relative) in which the new file should be written
+- `-d`/`--date` - specify a date in the format YYYY-MM-DD or leave out to default to today's date
+- `-w` - this flag signals to open the new file in an editor (default is vi)
 
 The `title` option in the yaml will be initialized to the given title.
 
@@ -69,7 +69,7 @@ will be added soon.
 
 To run: `licenseme [-n Name]`
 
-- -n - optional tag to specify the name of the license that you want to use.
+- `-n` - optional tag to specify the name of the license that you want to use.
 
 Example 1: `licenseme` which will generate a file named LICENSE in the current
 directory.
