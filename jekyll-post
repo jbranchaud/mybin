@@ -8,9 +8,14 @@ listed below will be part of the initialization.
 jekyll-post [-w] [-d date] [title]
 
 title   the title of the post wrapped in quotes, e.g. "post title here"
+-D      the directory (relative or absolute) that the file should be written to.
 -d      the default date is today's date or this option can be used to specify
         a date. The date must be specified in the format YYYY-MM-DD.
--w      this optional flag will signal the file to be opened for writing in vi
+-n      the name for the post file instead of using the automatically generated one.
+-t      the tags that should be added to the yaml portion of the file separated
+        by spaces and the whole thing wrapped in quotes.
+-w      this optional flag will signal the file to be opened for writing in vi.
+
 
 yaml options
 ---
@@ -19,6 +24,10 @@ title: [title]
 summary:
 status: draft
 hn-discussion:
+tags:
+- tag1
+- tag2
+- tag3
 ---
 """
 
@@ -38,6 +47,7 @@ def main():
     parser.add_argument('-D', '--Dir', help='specify the directory (relative or absolute) that the file should be written to.')
     parser.add_argument('-d', '--date', help='specify the post date in the format YYYY-MM-DD, otherwise today is the default date.')
     parser.add_argument('-n', '--name', help='specify the name of the post file instead of the automatically generated one. It is a best practice for the words to be separated by hyphens. Also note that the given name will be prepended with the date so as to conform to Jekyll naming requirements.')
+    parser.add_argument('-t', '--tags', help='specify a set of tags for the post separated by spaces with the entire set wrapped in quotes (e.g. "tag1 tag2 tag3").')
     parser.add_argument('-w', '--write', action="store_true",
         help='signals if this file should be opened for writing after creation')
     args = parser.parse_args()
@@ -81,6 +91,11 @@ def main():
         print 'Jekyll post NOT created.'
         sys.exit(1)
 
+    # collect any tags included in the args
+    tags = []
+    if args.tags:
+        tags = args.tags.split(' ')
+
     # TODO: should probably wrap all of this in try/catch
     try:
         f = open(filename, 'w')
@@ -93,6 +108,10 @@ def main():
             f.write('summary:\n')
             f.write('status: draft\n')
             f.write('hn-discussion:\n')
+            if tags:
+                f.write('tags:\n')
+                for tag in tags:
+                    f.write('- ' + tag + '\n')
             f.write('---\n\n\n')
         finally:
             f.close()
