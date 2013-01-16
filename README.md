@@ -37,6 +37,7 @@ To run: `jekyll-post [-D Dir] [-d date] [-w] title`
 - `title` - the title of the post wrapped in quotes
 - `-D`/`--Dir` - specify the directory (absolute or relative) in which the new file should be written
 - `-d`/`--date` - specify a date in the format YYYY-MM-DD or leave out to default to today's date
+- `-t`/`--tags` - specify a set of tags for the past separated by spaces with the whole thing wrapped in quotes
 - `-w` - this flag signals to open the new file in an editor (default is vi)
 
 The `title` option in the yaml will be initialized to the given title.
