@@ -1,0 +1,100 @@
+#!/usr/bin/python
+
+"""
+autotex - this script uses Watchdog to keep an eye on the files in a LaTeX
+project. Whenever the state of those files changes in anyway, this script will
+call for the particular main tex file to be recompiled with pdflatex. The
+preview program in Mac updates the view of files when they change, so this
+will be immediately reflected in the view when looking at the pdfs in Preview.
+"""
+
+# Import Statements
+import argparse
+import os
+import sys
+import time
+import subprocess
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+
+def getext(filename):
+    """
+    getext - get the file extension for the given filename and make it
+    lowercase before returning it.
+    """
+    return os.path.splitext(filename)[-1].lower()
+
+class ChangeHandler(FileSystemEventHandler):
+    """
+    keep an eye out for any changes at all that are happening to
+    tex files, bib files, and fig files. It may also be nice to add at some
+    point image files and other embeddables.
+    """
+
+    def on_any_event(self, event):
+        """
+        using the event, I can go through and see the directories and files
+        that have changed and if any match my criteria, I can rerun pdflatex
+        """
+        print 'encountered an event for %s' % event.src_path
+        print 'this event type is %s' % event.event_type
+        if event.is_directory:
+            return
+        ext = getext(event.src_path)
+        #if ext == '.tex' or ext == '.bib' or ext == '.fig':
+        project_dir = os.path.abspath(os.path.dirname(MAIN))
+        tex_file = os.path.basename(MAIN)
+        run_pdflatex(tex_file, project_dir)
+
+def run_pdflatex(tex_file, project_dir):
+    """
+    run_pdflatex - use the subprocess module to recompile the LaTeX project
+    with the pdflatex command. 
+    """
+    print 'running pdflatex on %s' % tex_file
+    process = subprocess.Popen( ('pdflatex', tex_file),
+                                    stdin = subprocess.PIPE,
+                                    stdout = subprocess.PIPE,
+                                    close_fds = True,
+                                    cwd = project_dir)
+    stdout_text, stdout_err = process.communicate()
+    return stdout_text.rstrip()
+
+BASEDIR = os.path.abspath(os.path.dirname(__file__))
+MAIN = ''
+
+def main():
+    # parse the arguments
+    parser = argparse.ArgumentParser(description='Uses Watchdog to monitor and recompile the PDF for LaTeX projects')
+    parser.add_argument('main', help='name of the main tex document that should be compiled')
+    args = parser.parse_args()
+    
+    global MAIN
+    MAIN = args.main
+
+    # check that MAIN is a tex file and exists
+    if not getext(MAIN) == '.tex' and not os.path.exists(MAIN):
+        print "invalid main file given, aborting program."
+        sys.exit(1)
+
+    project_dir = os.path.abspath(os.path.dirname(MAIN))
+    tex_file = os.path.basename(MAIN)
+
+    print 'initializing autotex to auto-compile the LaTeX project at %s' % project_dir
+    print 'recompiling from the main file: %s' % tex_file
+
+    while 1:
+        event_handler = ChangeHandler()
+        observer = Observer()
+        observer.schedule(event_handler, project_dir, recursive=True)
+        observer.start()
+        try:
+            while True:
+                time.sleep(1)
+        except KeyboardInterrupt:
+            observer.stop()
+        observer.join()
+
+if __name__ == '__main__':
+    main()
+

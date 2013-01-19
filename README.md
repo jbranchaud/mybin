@@ -58,6 +58,21 @@ like 2013-01-01-How-to-Shotgun-a-Beer.md.
 Example 3: `jekyll-post -d 2012-12-31 "Happy New Year"` will generate a file in
 the current directory with the name 2012-12-31-Happy-New-Year.md.
 
+autotex
+-------
+
+This script can be run in the background for a LaTeX project to auto-compile
+the tex files to PDF whenever they are modified. The initial implementation
+is a bit hacked together because of some issues working with the Watchdog
+script, but it gets the job done.
+
+To run: `autotex main`
+
+- `main` - the main tex file that needs to be called with pdflatex
+
+Example 1: `autotex paper.tex` which will start the Watchdog-powered script
+to start monitoring the directory where that tex file is located.
+
 licenseme
 ---------
 
