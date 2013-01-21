@@ -69,9 +69,15 @@ script, but it gets the job done.
 To run: `autotex main`
 
 - `main` - the main tex file that needs to be called with pdflatex
+- `-d`/`-dir` - specify the directory in which the LaTeX project resides
+- `--debug` - this flag turns on all the print statements so that you can see what is being monitored
 
 Example 1: `autotex paper.tex` which will start the Watchdog-powered script
 to start monitoring the directory where that tex file is located.
+
+Example 2: `autotex -d /Users/jbranchaud/papers/paper1 paper.tex` which will
+start the Watchdog monitoring on the specified directory and use paper.tex as
+the main file.
 
 licenseme
 ---------
