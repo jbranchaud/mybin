@@ -36,8 +36,9 @@ class ChangeHandler(FileSystemEventHandler):
         using the event, I can go through and see the directories and files
         that have changed and if any match my criteria, I can rerun pdflatex
         """
-        print 'encountered an event for %s' % event.src_path
-        print 'this event type is %s' % event.event_type
+        if DEBUG:
+            print 'encountered an event for %s' % event.src_path
+            print 'this event type is %s' % event.event_type
         if event.is_directory:
             return
         ext = getext(event.src_path)
@@ -49,7 +50,8 @@ def run_pdflatex(tex_file, project_dir):
     run_pdflatex - use the subprocess module to recompile the LaTeX project
     with the pdflatex command. 
     """
-    print 'running pdflatex on %s' % tex_file
+    if DEBUG:
+        print 'running pdflatex on %s' % tex_file
     process = subprocess.Popen( ('pdflatex', tex_file),
                                     stdin = subprocess.PIPE,
                                     stdout = subprocess.PIPE,
@@ -61,15 +63,19 @@ def run_pdflatex(tex_file, project_dir):
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 TEX_FILE = ''
 PROJECT_DIR = ''
+DEBUG = False
 
 def main():
     # parse the arguments
     parser = argparse.ArgumentParser(description='Uses Watchdog to monitor and recompile the PDF for LaTeX projects')
     parser.add_argument('main', help='name of the main tex document that should be compiled')
     parser.add_argument('-d', '--dir', help='the directory that the LaTeX project resides in, this can alternatively be specified by the main argument.')
+    parser.add_argument('--debug', action='store_true', help='a flag for turning on the debug option which prints all sorts of messages to stdout.')
     args = parser.parse_args()
     
     main = args.main
+    global DEBUG
+    DEBUG = args.debug
 
     # PROJECT_DIR is either given or inferred from the main
     global PROJECT_DIR
@@ -89,8 +95,9 @@ def main():
         print "invalid main file given, aborting program."
         sys.exit(1)
 
-    print 'initializing autotex to auto-compile the LaTeX project at %s' % PROJECT_DIR
-    print 'recompiling from the main file: %s' % TEX_FILE
+    if DEBUG:
+        print 'initializing autotex to auto-compile the LaTeX project at %s' % PROJECT_DIR
+        print 'recompiling from the main file: %s' % TEX_FILE
 
     while 1:
         event_handler = ChangeHandler()
