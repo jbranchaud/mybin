@@ -42,9 +42,7 @@ class ChangeHandler(FileSystemEventHandler):
             return
         ext = getext(event.src_path)
         #if ext == '.tex' or ext == '.bib' or ext == '.fig':
-        project_dir = os.path.abspath(os.path.dirname(MAIN))
-        tex_file = os.path.basename(MAIN)
-        run_pdflatex(tex_file, project_dir)
+        run_pdflatex(TEX_FILE, PROJECT_DIR)
 
 def run_pdflatex(tex_file, project_dir):
     """
@@ -61,32 +59,43 @@ def run_pdflatex(tex_file, project_dir):
     return stdout_text.rstrip()
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-MAIN = ''
+TEX_FILE = ''
+PROJECT_DIR = ''
 
 def main():
     # parse the arguments
     parser = argparse.ArgumentParser(description='Uses Watchdog to monitor and recompile the PDF for LaTeX projects')
     parser.add_argument('main', help='name of the main tex document that should be compiled')
+    parser.add_argument('-d', '--dir', help='the directory that the LaTeX project resides in, this can alternatively be specified by the main argument.')
     args = parser.parse_args()
     
-    global MAIN
-    MAIN = args.main
+    main = args.main
+
+    # PROJECT_DIR is either given or inferred from the main
+    global PROJECT_DIR
+    if args.dir:
+        PROJECT_DIR = os.path.abspath(args.dir)
+    else:
+        PROJECT_DIR = os.path.abspath(os.path.dirname(main))
+
+    # TEX_FILE is the basename of the the main argument
+    global TEX_FILE
+    TEX_FILE = os.path.basename(main)
+
+    full_path = PROJECT_DIR + '/' + TEX_FILE
 
     # check that MAIN is a tex file and exists
-    if not getext(MAIN) == '.tex' and not os.path.exists(MAIN):
+    if not getext(full_path) == '.tex' and not os.path.exists(full_path):
         print "invalid main file given, aborting program."
         sys.exit(1)
 
-    project_dir = os.path.abspath(os.path.dirname(MAIN))
-    tex_file = os.path.basename(MAIN)
-
-    print 'initializing autotex to auto-compile the LaTeX project at %s' % project_dir
-    print 'recompiling from the main file: %s' % tex_file
+    print 'initializing autotex to auto-compile the LaTeX project at %s' % PROJECT_DIR
+    print 'recompiling from the main file: %s' % TEX_FILE
 
     while 1:
         event_handler = ChangeHandler()
         observer = Observer()
-        observer.schedule(event_handler, project_dir, recursive=True)
+        observer.schedule(event_handler, PROJECT_DIR, recursive=True)
         observer.start()
         try:
             while True:
