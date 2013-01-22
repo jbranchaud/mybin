@@ -96,7 +96,7 @@ def main():
     if args.tags:
         tags = args.tags.split(' ')
 
-    # TODO: should probably wrap all of this in try/catch
+    # try writing yaml to the post file
     try:
         f = open(filename, 'w')
 
@@ -118,9 +118,11 @@ def main():
     except IOError:
         print 'Issue writing to Jekyll post file.'
 
+    # if write flag is on, then try to open file with vi
     if args.write:
         subprocess.call(['vi', filename])
 
+    # print confirmation statement
     print 'New Jekyll post "' + title + '" has been created -- ' + filename
 
 if __name__ == '__main__':
