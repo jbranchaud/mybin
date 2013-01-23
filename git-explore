@@ -1,0 +1,15 @@
+#/bin/sh
+
+# This is a collection of quick and dirty unix commands for exploring
+# local git repositories. Read the description of each to see what it
+# does.
+
+# Get a count of the number of commits for this git repo
+git log | grep 'Author: ' | wc -l
+git log --oneline | wc -l
+
+# Get a count of the number of authors for this git repo
+git log | grep 'Author: ' | sort | uniq | wc -l
+
+# Get a sorted list of the authors for this git repo
+git log | grep 'Author: ' | sort | uniq
