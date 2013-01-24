@@ -13,3 +13,14 @@ git log | grep 'Author: ' | sort | uniq | wc -l
 
 # Get a sorted list of the authors for this git repo
 git log | grep 'Author: ' | sort | uniq
+
+# Get the number of merges along the main branch
+git rev-list --merges HEAD | wc -l
+
+# Get the list of commits that are the result of merges on the main branch
+git rev-list --merges HEAD
+
+# Get the root commit(s) for the main branch, if more than one exists
+# then you will have to use 'git show' to figure out which is the initial
+# commit.
+git rev-list --max-parents=0 HEAD
