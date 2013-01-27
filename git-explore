@@ -7,12 +7,17 @@
 # Get a count of the number of commits for this git repo
 git log | grep 'Author: ' | wc -l
 git log --oneline | wc -l
+git rev-list HEAD | wc -l
 
 # Get a count of the number of authors for this git repo
 git log | grep 'Author: ' | sort | uniq | wc -l
 
 # Get a sorted list of the authors for this git repo
 git log | grep 'Author: ' | sort | uniq
+
+# Get a list of authors for this git repo with their commit count,
+# sorted in decreasing order by the commit count
+git log | grep 'Author: ' | sort | uniq -c | sort -rn
 
 # Get the number of merges along the main branch
 git rev-list --merges HEAD | wc -l
