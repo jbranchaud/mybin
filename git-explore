@@ -29,3 +29,10 @@ git rev-list --merges HEAD
 # then you will have to use 'git show' to figure out which is the initial
 # commit.
 git rev-list --max-parents=0 HEAD
+
+# Get a list of the files changed at a commit (defaults to diff with the
+# parent). Replace HEAD with any commit hash.
+git show --pretty="format:" --name-only HEAD
+
+# Get a list of the files added at the initial commit of this git repo
+git show --pretty="format:" --name-only `git rev-list --max-parents=0 HEAD`
