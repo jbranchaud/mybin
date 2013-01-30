@@ -7,7 +7,15 @@
 # Get a count of the number of commits for this git repo
 git log | grep 'Author: ' | wc -l
 git log --oneline | wc -l
+git log --pretty=oneline | wc -l
 git rev-list HEAD | wc -l
+
+# Count the number of non-merge commits for this git repo
+git rev-list --no-merges HEAD | wc -l
+
+# Get a list of hashes and commit messages for the log history of the repo
+git log --pretty=oneline
+git log --oneline
 
 # Get a count of the number of authors for this git repo
 git log | grep 'Author: ' | sort | uniq | wc -l
@@ -24,6 +32,9 @@ git rev-list --merges HEAD | wc -l
 
 # Get the list of commits that are the result of merges on the main branch
 git rev-list --merges HEAD
+
+# Get the list of commits that are non-merges on the HEAD branch
+git rev-list --no-merges HEAD
 
 # Get the root commit(s) for the main branch, if more than one exists
 # then you will have to use 'git show' to figure out which is the initial
