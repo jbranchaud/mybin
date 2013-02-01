@@ -19,6 +19,8 @@ git log --oneline
 
 # See a graph representation of the commit history (CLI style)
 git log --graph
+git log --graph --decorate --pretty=oneline --abbrev-commit
+git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 
 # Get a count of the number of authors for this git repo
 git log | grep 'Author: ' | sort | uniq | wc -l
