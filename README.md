@@ -79,6 +79,10 @@ Example 2: `autotex -d /Users/jbranchaud/papers/paper1 paper.tex` which will
 start the Watchdog monitoring on the specified directory and use paper.tex as
 the main file.
 
+*Issue*: when there is a LaTeX compilation error, you won't get any sort of
+warning. This is rather unhelpful and makes it difficult to figure out what
+is going on. Need to come up with a way to get around this.
+
 licenseme
 ---------
 
