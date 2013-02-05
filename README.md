@@ -1,5 +1,4 @@
-mybin
-=====
+# mybin
 
 this is a collection of random scripts that I have written and put on my path
 to save time or do cool things.
@@ -7,8 +6,7 @@ to save time or do cool things.
 It is assumed that if you want to run any of these scripts that you will stick
 them somewhere that is on your system's path.
 
-pyv
----
+## pyv
 
 This is a small python script to get the version of a python module. It was
 inspired both by me wrestling to find version numbers for various modules and
@@ -23,8 +21,7 @@ Example 2: `pyv -v lxml` -> `lxml 3.0.2 (/Library/Python/2.7/site-packages)`
 
 Example 3: `pyv not_a_module` -> `No distribution named not_a_module`
 
-jekyll-post
------------
+## jekyll-post
 
 This is a python script that creates and initializes a Jekyll post file. This
 eliminates the need to remember all the yaml options that need to go into a
@@ -58,8 +55,7 @@ like 2013-01-01-How-to-Shotgun-a-Beer.md.
 Example 3: `jekyll-post -d 2012-12-31 "Happy New Year"` will generate a file in
 the current directory with the name 2012-12-31-Happy-New-Year.md.
 
-autotex
--------
+## autotex
 
 This script can be run in the background for a LaTeX project to auto-compile
 the tex files to PDF whenever they are modified. The initial implementation
@@ -83,8 +79,7 @@ the main file.
 warning. This is rather unhelpful and makes it difficult to figure out what
 is going on. Need to come up with a way to get around this.
 
-licenseme
----------
+## licenseme
 
 This python script is to be run from inside a project to generate a file called
 README that contains license information. Currently, only the MIT license is
@@ -105,8 +100,7 @@ Some useful links:
 - [Open Source Initiative](http://opensource.org/licenses/)
 - [Pick a License, Any License](http://www.codinghorror.com/blog/2007/04/pick-a-license-any-license.html) - [Coding Horror](http://www.codinghorror.com/blog/)
 
-License
--------
+# License
 
 Copyright (c) 2012 Josh Branchaud
 
