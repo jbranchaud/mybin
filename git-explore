@@ -52,3 +52,7 @@ git show --pretty="format:" --name-only HEAD
 
 # Get a list of the files added at the initial commit of this git repo
 git show --pretty="format:" --name-only `git rev-list --max-parents=0 HEAD`
+
+# See the pending commits/unpushed commits
+git log origin/master..HEAD
+git log --branches --not --remotes
