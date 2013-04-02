@@ -60,6 +60,13 @@ def main():
     else:
         dash_title = title.replace(' ','-')
 
+    # clean up any special characters from the dash-title
+    temp_title = '';
+    for char in dash_title:
+        if char.isalnum() or char == '-':
+            temp_title += char
+    dash_title = temp_title
+
     date = None
     if args.date:
         date = args.date
