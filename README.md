@@ -102,6 +102,6 @@ Some useful links:
 
 # License
 
-Copyright (c) 2013 Josh Branchaud under the MIT License. See LICENSE for
+&copy; 2013-2014 Josh Branchaud under the MIT License. See LICENSE for
 details.
 
